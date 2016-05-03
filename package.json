@@ -1,0 +1,16 @@
+{
+  "name": "webpack-isomorphic",
+  "version": "0.1.0",
+  "description": "A lightweight solution for the server-side rendering of Webpack-built applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Coming soon!\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "webpack",
+    "isomorphic"
+  ],
+  "author": "Lanfei",
+  "license": "MIT"
+}

@@ -1,10 +1,24 @@
+var fs = require('fs');
 var path = require('path');
 var Module = require('module');
 
-module.exports = function (assets, context) {
-	var files = assets.files;
-	var extensions = assets.extensions;
+function loadAssets(context) {
+	var filename = path.join(context, 'webpack.assets.json');
+	try {
+		return JSON.parse(fs.readFileSync(filename));
+	} catch (e) {
+		console.warn('Warning: \'' + filename + '\' is not valid.');
+	}
+	return {};
+}
 
+exports.install = function (context) {
+	var assets = loadAssets(context);
+	var files = assets.files || {};
+	var extensions = assets.extensions || [];
+
+	// require hack
+	// @see https://github.com/nodejs/node/blob/master/lib/module.js
 	var original = Module._resolveFilename;
 	Module._resolveFilename = function (request, parent) {
 		var ext = path.extname(request).slice(1);

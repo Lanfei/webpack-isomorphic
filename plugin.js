@@ -11,7 +11,7 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 	var assets = {extensions: extensions, files: files};
 	var options = compiler.options;
 	var context = options.context;
-	var publicPath = options.output.publicPath;
+	var publicPath = options.output.publicPath || '';
 
 	compiler.plugin('emit', function (compilation, callback) {
 
@@ -36,7 +36,7 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 			size: function () {
 				return json.length;
 			}
-		}
+		};
 		callback();
 	});
 };

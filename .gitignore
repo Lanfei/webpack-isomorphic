@@ -1,3 +1,11 @@
+# System Files
+.DS_Store
+*.sh
+*.bat
+
+# IDE
+.idea
+
 # Logs
 logs
 *.log

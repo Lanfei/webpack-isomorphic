@@ -51,4 +51,4 @@ Enjoy!
 
 ## Example
 
-See [the example project](https://github.com/Lanfei/webpack-isomorphic/example) for more details.
+See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/master/example) for more details.

@@ -8,9 +8,10 @@ var webpackIsomorphic = require('../');
 
 var port = 8080;
 var viewsDir = path.join(__dirname, './views/dist');
+var isProduction = process.env['NODE_ENV'] !== 'development';
 
 webpackIsomorphic.install(viewsDir, {
-	cache: process.env['NODE_ENV'] !== 'development'
+	cache: isProduction
 });
 
 var server = http.createServer(function (req, res) {
@@ -23,6 +24,8 @@ var server = http.createServer(function (req, res) {
 		gotpl.renderFile(template, {
 			initialData: initialData,
 			initialHTML: ReactDOMServer.renderToString(factory(initialData))
+		}, {
+			cache: isProduction
 		}, function (err, html) {
 			if (err) {
 				res.end(err.stack);

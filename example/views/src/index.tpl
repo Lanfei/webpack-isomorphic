@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Webpack Isomorphic Example</title>
+	<link rel="stylesheet" href="index.css">
 </head>
 <body>
 <div id="root"><%- initialHTML %></div>

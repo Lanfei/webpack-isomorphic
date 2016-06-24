@@ -7,9 +7,12 @@ A lightweight solution for the server-side rendering of Webpack-built applicatio
 With webpack, we can require any files by using loaders:
 
 ```jsx
+// CSS Modules
+// @see https://www.npmjs.com/package/css-loader#css-modules
 require('../css/style.css');
 
-<img src={require('./img/avatar.js')} />
+// Require a image file
+<img src={require('./img/avatar.jpg')} />
 ```
 
 But you'll get an error in server-side rendering, because it is not supported by Node.js.

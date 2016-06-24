@@ -35,11 +35,9 @@ exports.install = function (context, opts) {
 		});
 	}
 
-	loadAssets();
-
 	var original = Module._resolveFilename;
 	Module._resolveFilename = function (request, parent) {
-		if (!cache) {
+		if (!assets || !cache) {
 			loadAssets();
 		}
 		var ext = path.extname(request).slice(1);

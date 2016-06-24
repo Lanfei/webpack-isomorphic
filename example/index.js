@@ -9,7 +9,9 @@ var webpackIsomorphic = require('../');
 var port = 8080;
 var viewsDir = path.join(__dirname, './views/dist');
 
-webpackIsomorphic.install(viewsDir);
+webpackIsomorphic.install(viewsDir, {
+	cache: process.env['NODE_ENV'] !== 'development'
+});
 
 var server = http.createServer(function (req, res) {
 	if (req.url === '/') {

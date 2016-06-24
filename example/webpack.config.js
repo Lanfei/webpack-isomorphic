@@ -8,7 +8,7 @@ var pagePlugin = new PagePlugin({
 	files: '**/*.tpl'
 });
 var isomorphicPlugin = new IsomorphicPlugin({
-	extensions: ['jpg', 'png', 'gif']
+	extensions: ['jpg', 'png', 'gif', 'css']
 });
 
 var config = {

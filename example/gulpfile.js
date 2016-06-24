@@ -5,6 +5,8 @@ var named = require('vinyl-named');
 var plumber = require('gulp-plumber');
 var webpack = require('webpack-stream');
 
+var webpackConfig = require('./webpack.config.js');
+
 var src = 'views/src';
 var dest = 'views/dist';
 var entries = 'views/src/js/*.js';
@@ -25,12 +27,11 @@ gulp.task('production', ['clean'], function () {
 });
 
 gulp.task('webpack', function () {
-	var config = require('./webpack.config.js');
 	return gulp
 		.src(entries, {base: src})
 		.pipe(plumber())
 		.pipe(named())
-		.pipe(webpack(config))
+		.pipe(webpack(webpackConfig))
 		.pipe(gulp.dest(dest));
 });
 
@@ -46,5 +47,10 @@ gulp.task('babel', function () {
 
 gulp.task('build', ['babel'], function () {
 	gulp.start('webpack');
-	// gulp.watch([entries, components], ['babel']);
+});
+
+gulp.task('watch', ['babel'], function () {
+	webpackConfig['watch'] = true;
+	gulp.start('webpack');
+	gulp.watch([entries, components], ['babel']);
 });

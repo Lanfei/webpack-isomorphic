@@ -14,7 +14,7 @@ require('../css/style.css');
 
 But you'll get an error in server-side rendering, because it is not supported by Node.js.
 
-`webpack-isomorphic` is a lightweight solution to solve this issue, and make your client-side codes work on server too.
+`webpack-isomorphic` is a lightweight, easy-to-use solution to solve this issue, and make your client-side codes work on server too.
 
 ## Usage
 
@@ -24,11 +24,12 @@ But you'll get an error in server-side rendering, because it is not supported by
 var IsomorphicPlugin = require('webpack-isomorphic/plugin');
 
 var isomorphicPlugin = new IsomorphicPlugin({
-	extensions: ['jpg', 'png', 'gif']
+	extensions: ['jpg', 'png', 'gif', 'css']
 });
 
 module.exports = {
-	context: 'the context of source files(required)',
+	// The base directory of your source files
+	context: __dirname + '/src',
 	// ...
 	plugins: [
 		//...
@@ -42,7 +43,10 @@ module.exports = {
 ```js
 var webpackIsomorphic = require('webpack-isomorphic');
 
-webpackIsomorphic.install('the context of built files');
+// The base directory of your built files
+webpackIsomorphic.install(__dirname + '/dist', {
+	cache: process.env['NODE_ENV'] !== 'development'
+});
 
 //...
 ```

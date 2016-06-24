@@ -10,22 +10,26 @@ var port = 8080;
 var viewsDir = path.join(__dirname, './views/dist');
 var isProduction = process.env['NODE_ENV'] !== 'development';
 
+gotpl.config('cache', isProduction);
+
 webpackIsomorphic.install(viewsDir, {
 	cache: isProduction
 });
 
 var server = http.createServer(function (req, res) {
+
 	if (req.url === '/') {
 		// Server-side rendering
 		var initialData = {foo: 'bar'};
 		var template = path.join(viewsDir, 'index.tpl');
-		var reactClass = path.join(viewsDir, 'js', 'index');
+		var reactClass = path.join(viewsDir, 'js/index.js');
 		var factory = React.createFactory(require(reactClass));
+		if (!isProduction) {
+			delete require.cache[reactClass];
+		}
 		gotpl.renderFile(template, {
 			initialData: initialData,
 			initialHTML: ReactDOMServer.renderToString(factory(initialData))
-		}, {
-			cache: isProduction
 		}, function (err, html) {
 			if (err) {
 				res.end(err.stack);
@@ -45,6 +49,12 @@ var server = http.createServer(function (req, res) {
 			}
 		});
 	}
+
+	// Logs
+	res.on('finish', function () {
+		var now = new Date();
+		console.log('[' + now.toLocaleString() + ']', req.method, req.url, res.statusCode);
+	});
 
 });
 server.listen(port);

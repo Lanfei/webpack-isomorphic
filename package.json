@@ -1,6 +1,6 @@
 {
   "name": "webpack-isomorphic",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A lightweight solution for the server-side rendering of Webpack-built applications.",
   "main": "index.js",
   "scripts": {

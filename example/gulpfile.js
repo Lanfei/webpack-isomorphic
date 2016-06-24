@@ -5,8 +5,6 @@ var named = require('vinyl-named');
 var plumber = require('gulp-plumber');
 var webpack = require('webpack-stream');
 
-var webpackConfig = require('./webpack.config.js');
-
 var src = 'views/src';
 var dest = 'views/dist';
 var entries = 'views/src/js/*.js';
@@ -17,8 +15,10 @@ gulp.task('clean', function () {
 });
 
 gulp.task('default', ['clean'], function () {
-	process.env['NODE_ENV'] = 'dev';
+	var config = require('./webpack.config.js');
+	config['watch'] = true;
 	gulp.start('build');
+	gulp.watch([entries, components], ['babel']);
 });
 
 gulp.task('production', ['clean'], function () {
@@ -27,11 +27,12 @@ gulp.task('production', ['clean'], function () {
 });
 
 gulp.task('webpack', function () {
+	var config = require('./webpack.config.js');
 	return gulp
 		.src(entries, {base: src})
 		.pipe(plumber())
 		.pipe(named())
-		.pipe(webpack(webpackConfig))
+		.pipe(webpack(config))
 		.pipe(gulp.dest(dest));
 });
 
@@ -47,10 +48,4 @@ gulp.task('babel', function () {
 
 gulp.task('build', ['babel'], function () {
 	gulp.start('webpack');
-});
-
-gulp.task('watch', ['babel'], function () {
-	webpackConfig['watch'] = true;
-	gulp.start('webpack');
-	gulp.watch([entries, components], ['babel']);
 });

@@ -16,12 +16,14 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 	compiler.plugin('emit', function (compilation, callback) {
 
 		compilation.modules.forEach(function (module) {
-			var ext = path.extname(module.resource).slice(1);
-			if (extensions.indexOf(ext) >= 0) {
+			var userRequest = module['userRequest'] || '';
+			var ext = path.extname(userRequest).slice(1);
+			if (userRequest.indexOf('!') < 0 && extensions.indexOf(ext) >= 0) {
 				var prefix = 'var __webpack_public_path__ = \'' + publicPath + '\';';
-				var filename = path.relative(context, module.resource);
-				if (module._source) {
-					files[filename] = prefix + module._source._value;
+				var filename = path.relative(context, userRequest);
+
+				if (module['_source']) {
+					files[filename] = prefix + module['_source']['_value'];
 				} else {
 					files[filename] = 'undefined';
 				}

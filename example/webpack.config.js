@@ -26,7 +26,7 @@ var config = {
 			loader: 'babel-loader?presets[]=react&presets[]=es2015'
 		}, {
 			test: /\.css$/,
-			loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module', {publicPath: '../'})
+			loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules', {publicPath: '../'})
 		}, {
 			test: /\.(jpg|png|gif$)/,
 			loader: 'file-loader?name=img/[name].[hash:6].[ext]'

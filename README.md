@@ -1,4 +1,4 @@
-# webpack-isomorphic
+# webpack-isomorphic [![NPM version][npm-image]][npm-url]
 
 A lightweight solution for the server-side rendering of Webpack-built applications.
 
@@ -20,6 +20,12 @@ But you'll get an error in server-side rendering, because it is not supported by
 `webpack-isomorphic` is a lightweight, easy-to-use solution to solve this issue, and make your client-side codes work on server too.
 
 ## Usage
+
+### Installation
+
+```bash
+$ npm install --save webpack-isomorphic
+```
 
 ### webpack.config.js
 
@@ -59,3 +65,6 @@ Enjoy!
 ## Example
 
 See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/master/example) for more details.
+
+[npm-url]: https://npmjs.org/package/gulp-file-inline
+[npm-image]: https://badge.fury.io/js/gulp-file-inline.svg

@@ -66,5 +66,5 @@ Enjoy!
 
 See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/master/example) for more details.
 
-[npm-url]: https://npmjs.org/package/gulp-file-inline
-[npm-image]: https://badge.fury.io/js/gulp-file-inline.svg
+[npm-url]: https://npmjs.org/package/webpack-isomorphic
+[npm-image]: https://badge.fury.io/js/webpack-isomorphic.svg

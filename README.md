@@ -23,7 +23,7 @@ But you'll get an error in server-side rendering, because it is not supported by
 
 ### Installation
 
-```bash
+```sh
 $ npm install --save webpack-isomorphic
 ```
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Webpack Isomorphic Example</title>
+	<title>webpack-isomorphic Example</title>
 	<link rel="stylesheet" href="index.css">
 </head>
 <body>

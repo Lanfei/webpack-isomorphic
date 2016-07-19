@@ -1,6 +1,6 @@
 # webpack-isomorphic [![NPM version][npm-image]][npm-url]
 
-A lightweight solution for the server-side rendering of Webpack-built applications.
+A lightweight solution for the server-side rendering of webpack-built applications.
 
 ## Why do we need it?
 

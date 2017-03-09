@@ -35,24 +35,22 @@ exports.install = function (context, opts) {
 		});
 	}
 
-	var original = Module._resolveFilename;
-	Module._resolveFilename = function (request, parent) {
+	var original = Module._findPath;
+	Module._findPath = function (request, paths) {
 		if (!assets || !cache) {
 			loadAssets();
 		}
 		var ext = path.extname(request).slice(1);
-		var filename = path.join(path.dirname(parent.filename), request);
-		if (extensions.indexOf(ext) >= 0) {
+		if (extensions.indexOf(ext) < 0) {
+			return original.apply(Module, arguments);
+		}
+		for (var i = 0, l = paths.length; i < l; ++i) {
+			var filename = path.join(paths[i], request);
 			var relative = path.relative(context, filename);
 			if (files[relative] !== undefined) {
 				return filename;
 			}
 		}
-		var parentExt = path.extname(parent.filename).slice(1);
-		if (extensions.indexOf(parentExt) >= 0 && !path.isAbsolute(request)) {
-			return filename;
-		}
-		return original.apply(Module, arguments);
 	};
 
 };

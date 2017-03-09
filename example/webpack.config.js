@@ -35,9 +35,6 @@ var config = {
 			loader: 'html-loader?removeAttributeQuotes=false&collapseWhitespace=false'
 		}]
 	},
-	resolve: {
-		extentions: ['js', 'jsx']
-	},
 	plugins: [
 		pagePlugin,
 		isomorphicPlugin,

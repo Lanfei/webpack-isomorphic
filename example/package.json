@@ -10,25 +10,25 @@
   "author": "Lanfei",
   "license": "MIT",
   "devDependencies": {
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
     "css-loader": "^0.23.1",
-    "del": "^2.2.1",
+    "del": "^2.2.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-plumber": "^1.1.0",
-    "html-loader": "^0.4.3",
+    "html-loader": "^0.4.5",
     "page-webpack-plugin": "^0.1.9",
-    "style-loader": "^0.13.1",
+    "style-loader": "^0.13.2",
     "vinyl-named": "^1.1.0",
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "gotpl": "^4.6.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "gotpl": "^4.6.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
   }
 }

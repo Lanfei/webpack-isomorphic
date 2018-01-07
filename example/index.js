@@ -28,7 +28,7 @@ function renderToString(reactClass, data) {
 	return ReactDOMServer.renderToString(factory(data));
 }
 
-const server = http.createServer(function (req, res) {
+http.createServer(function (req, res) {
 
 	if (!isProduction) {
 		// Clear caches
@@ -75,8 +75,6 @@ const server = http.createServer(function (req, res) {
 		console.log('[' + now.toLocaleString() + ']', req.method, req.url, res.statusCode);
 	});
 
-});
-server.listen(port);
-server.on('listening', function () {
+}).listen(port, function () {
 	console.log('Listening on', port);
 });

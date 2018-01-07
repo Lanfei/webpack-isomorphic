@@ -1,18 +1,21 @@
 'use strict';
 
+const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const IsomorphicPlugin = require('../plugin');
 
+const cleanPlugin = new CleanWebpackPlugin(path.join(__dirname, '/views/dist'));
+const extractTextPlugin = new ExtractTextPlugin('css/[name].[contenthash:6].css');
 const isomorphicPlugin = new IsomorphicPlugin({
 	extensions: ['jpg', 'png', 'gif', 'css']
 });
-const extractTextPlugin = new ExtractTextPlugin('css/[name].[contenthash:6].css');
 
 module.exports = {
-	context: __dirname + '/views/src',
+	context: path.join(__dirname, '/views/src'),
 	entry: './js/index.js',
 	output: {
-		path: __dirname + '/views/dist',
+		path: path.join(__dirname, '/views/dist'),
 		filename: 'js/[name].[chunkhash:6].js'
 	},
 	module: {
@@ -32,6 +35,7 @@ module.exports = {
 		}]
 	},
 	plugins: [
+		cleanPlugin,
 		isomorphicPlugin,
 		extractTextPlugin
 	]

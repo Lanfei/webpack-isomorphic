@@ -41,7 +41,7 @@ const server = http.createServer(function (req, res) {
 		// Server-side rendering
 		let initialData = {appName: 'React isomorphic'};
 		let initialHTML = renderToString('js/index.js', initialData);
-		let html = renderToString('app', {
+		let html = renderToString('app.js', {
 			data: initialData,
 			html: initialHTML,
 			chunks: webpackIsomorphic.getChunks()

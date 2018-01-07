@@ -1,45 +1,38 @@
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-var PagePlugin = require('page-webpack-plugin');
-var IsomorphicPlugin = require('../plugin');
+'use strict';
 
-var pagePlugin = new PagePlugin({
-	cwd: __dirname + '/views/src',
-	files: '**/*.tpl'
-});
-var isomorphicPlugin = new IsomorphicPlugin({
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const IsomorphicPlugin = require('../plugin');
+
+const isomorphicPlugin = new IsomorphicPlugin({
 	extensions: ['jpg', 'png', 'gif', 'css']
 });
-var extractTextPlugin = new ExtractTextPlugin('css/[name].[contenthash:6].css');
+const extractTextPlugin = new ExtractTextPlugin('css/[name].[contenthash:6].css');
 
-var config = {
+module.exports = {
 	context: __dirname + '/views/src',
+	entry: './js/index.js',
 	output: {
 		path: __dirname + '/views/dist',
 		filename: 'js/[name].[chunkhash:6].js'
 	},
-	// watch: true,
 	module: {
 		loaders: [{
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
-			loader: 'babel-loader?presets[]=react&presets[]=es2015'
+			use: 'babel-loader'
 		}, {
 			test: /\.css$/,
-			loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules', {publicPath: '../'})
+			use: ExtractTextPlugin.extract({
+				fallback: 'style-loader',
+				use: 'css-loader?modules'
+			})
 		}, {
 			test: /\.(jpg|png|gif$)/,
-			loader: 'file-loader?name=img/[name].[hash:6].[ext]'
-		}, {
-			test: /\.(tpl|html$)/,
-			loader: 'html-loader?removeAttributeQuotes=false&collapseWhitespace=false'
+			use: 'file-loader?name=img/[name].[hash:6].[ext]'
 		}]
 	},
 	plugins: [
-		pagePlugin,
 		isomorphicPlugin,
 		extractTextPlugin
 	]
 };
-
-module.exports = config;

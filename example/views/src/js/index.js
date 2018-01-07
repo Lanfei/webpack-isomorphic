@@ -1,21 +1,22 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+'use strict';
 
-var style = require('../css/style.css');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var IndexPage = React.createClass({
+import style from '../css/style.css';
+
+class Index extends React.Component {
 	render() {
-		return <div>
-			<img className={style['avatar']} src={require('../img/avatar.jpg')} alt="avatar"/>
+		let appName = this.props['appName'];
+		return <div id="index-page">
+			<h1>Hello {appName}!</h1>
+			<img className={style.avatar} src={require('../img/avatar.jpg')} alt="Avatar"/>
 		</div>;
 	}
-});
-
-if (typeof window !== 'undefined') {
-	ReactDOM.render(
-		React.createElement(IndexPage, initialData),
-		document.getElementById('root')
-	);
 }
 
-module.exports = IndexPage;
+if (typeof window !== 'undefined') {
+	ReactDOM.hydrate(<Index {...initialData}/>, document.getElementById('root'));
+}
+
+export default Index;

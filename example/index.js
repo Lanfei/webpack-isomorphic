@@ -1,45 +1,64 @@
-var fs = require('fs');
-var path = require('path');
-var http = require('http');
-var gotpl = require('gotpl');
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var webpackIsomorphic = require('../');
+'use strict';
 
-var port = 8080;
-var viewsDir = path.join(__dirname, './views/dist');
-var isProduction = process.env['NODE_ENV'] !== 'development';
+const fs = require('fs');
+const path = require('path');
+const http = require('http');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const webpackIsomorphic = require('..');
 
-gotpl.config('cache', isProduction);
+const port = 8080;
+const viewsDir = path.join(__dirname, './views/dist');
+const isProduction = process.env['NODE_ENV'] !== 'development';
+
+let factoryCaches = {};
 
 webpackIsomorphic.install(viewsDir, {
 	cache: isProduction
 });
 
-var server = http.createServer(function (req, res) {
+function renderToString(reactClass, data) {
+	let classPath = path.join(viewsDir, reactClass);
+	let factory;
+	if (isProduction) {
+		factory = factoryCaches[classPath] = factoryCaches[classPath] || React.createFactory(require(classPath).default);
+	} else {
+		factory = React.createFactory(require(classPath).default);
+	}
+	return ReactDOMServer.renderToString(factory(data));
+}
+
+const server = http.createServer(function (req, res) {
+
+	if (!isProduction) {
+		// Clear caches
+		Object.keys(require.cache).forEach(function (key) {
+			delete require.cache[key];
+		});
+	}
 
 	if (req.url === '/') {
 		// Server-side rendering
-		var initialData = {foo: 'bar'};
-		var template = path.join(viewsDir, 'index.tpl');
-		var reactClass = path.join(viewsDir, 'js/index.js');
-		var factory = React.createFactory(require(reactClass));
-		if (!isProduction) {
-			delete require.cache[reactClass];
-		}
-		gotpl.renderFile(template, {
-			initialData: initialData,
-			initialHTML: ReactDOMServer.renderToString(factory(initialData))
-		}, function (err, html) {
-			if (err) {
-				res.end(err.stack);
-			} else {
-				res.end(html)
-			}
+		let initialData = {appName: 'React isomorphic'};
+		let initialHTML = renderToString('js/index.js', initialData);
+		let html = renderToString('app', {
+			data: initialData,
+			html: initialHTML,
+			chunks: webpackIsomorphic.getChunks()
 		});
+		res.end('<!DOCTYPE html>' + html);
+
+		// const reactClass = path.join(viewsDir, 'app.js');
+		// const factory = React.createFactory(require(reactClass).default);
+		// const initialData = {
+		// 	component: require(path.join(viewsDir, 'js/index.js')).default,
+		// 	chunks: webpackIsomorphic.getChunks(),
+		// 	store: {appName: 'React isomorphic'}
+		// };
+		// res.end('<!DOCTYPE html>' + ReactDOMServer.renderToString(factory(initialData)));
 	} else {
 		// Static assets
-		var filename = path.join(viewsDir, req.url);
+		let filename = path.join(viewsDir, req.url);
 		fs.readFile(filename, function (err, data) {
 			if (err) {
 				res.statusCode = 404;
@@ -52,7 +71,7 @@ var server = http.createServer(function (req, res) {
 
 	// Logs
 	res.on('finish', function () {
-		var now = new Date();
+		let now = new Date();
 		console.log('[' + now.toLocaleString() + ']', req.method, req.url, res.statusCode);
 	});
 

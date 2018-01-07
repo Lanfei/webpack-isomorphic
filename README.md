@@ -1,4 +1,4 @@
-# webpack-isomorphic [![NPM version][npm-image]][npm-url]
+# webpack-isomorphic [![npm version][npm]][npm-url]
 
 A lightweight solution for the server-side rendering of webpack-built applications.
 
@@ -30,9 +30,9 @@ $ npm install --save webpack-isomorphic
 ### webpack.config.js
 
 ```js
-var IsomorphicPlugin = require('webpack-isomorphic/plugin');
+const IsomorphicPlugin = require('webpack-isomorphic/plugin');
 
-var isomorphicPlugin = new IsomorphicPlugin({
+const isomorphicPlugin = new IsomorphicPlugin({
 	extensions: ['jpg', 'png', 'gif', 'css']
 });
 
@@ -50,7 +50,7 @@ module.exports = {
 ### Server-side codes
 
 ```js
-var webpackIsomorphic = require('webpack-isomorphic');
+const webpackIsomorphic = require('webpack-isomorphic');
 
 // The base directory of your built files
 webpackIsomorphic.install(__dirname + '/dist', {
@@ -66,5 +66,5 @@ Enjoy!
 
 See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/master/example) for more details.
 
+[npm]: https://img.shields.io/npm/v/webpack-isomorphic.svg
 [npm-url]: https://npmjs.org/package/webpack-isomorphic
-[npm-image]: https://badge.fury.io/js/webpack-isomorphic.svg

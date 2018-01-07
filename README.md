@@ -8,8 +8,8 @@ With webpack, we can require any files by using loaders:
 
 ```jsx
 // CSS Modules
-// @see https://www.npmjs.com/package/css-loader#css-modules
-require('../css/style.css');
+// @see https://www.npmjs.com/package/css-loader#modules
+import style from './css/style.css';
 
 // Require a image file
 <img src={require('./img/avatar.jpg')} />

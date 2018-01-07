@@ -16,17 +16,12 @@ export default class App extends React.Component {
 				<li><Link to="/">Index</Link></li>
 				<li><Link to="/about">About</Link></li>
 				<li><Link to="/redirect">Redirect</Link></li>
+				<li><a target="_blank" href="https://github.com/Lanfei/webpack-isomorphic">GitHub</a></li>
 			</ul>
 			<Switch>
 				<Route exact path="/" component={IndexPage}/>
 				<Route path="/about" component={AboutPage}/>
-				<Route path="/redirect" render={({staticContext}) => {
-					if (staticContext) {
-						staticContext.statusCode = 302;
-					}
-					return <Redirect to="/"/>;
-				}
-				}/>}/>
+				<Route path="/redirect" render={() => <Redirect to="/"/>}/>}/>
 				<Route component={NotFoundPage}/>
 			</Switch>
 		</div>;

@@ -55,6 +55,9 @@ app.use(function (req, res) {
 		location: req.url,
 		data: data
 	});
+	if (context.statusCode) {
+		res.status(context.statusCode);
+	}
 	if (context.url) {
 		res.redirect(context.statusCode || 301, context.url);
 	} else {

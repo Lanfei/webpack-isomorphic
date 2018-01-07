@@ -15,6 +15,7 @@ module.exports = {
 	context: path.join(__dirname, '/views/src'),
 	entry: './client-router.js',
 	output: {
+		publicPath: '/',
 		path: path.join(__dirname, '/views/dist'),
 		filename: 'statics/js/[name].[chunkhash:6].js'
 	},

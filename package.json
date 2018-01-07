@@ -1,6 +1,6 @@
 {
   "name": "webpack-isomorphic",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "A lightweight solution for the server-side rendering of webpack-built applications.",
   "main": "index.js",
   "scripts": {
@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/Lanfei/webpack-isomorphic/issues"
   },
-  "homepage": "https://github.com/Lanfei/webpack-isomorphic#readme"
+  "homepage": "https://github.com/Lanfei/webpack-isomorphic#readme",
+  "dependencies": {}
 }

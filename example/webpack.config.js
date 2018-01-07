@@ -6,17 +6,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const IsomorphicPlugin = require('../plugin');
 
 const cleanPlugin = new CleanWebpackPlugin(path.join(__dirname, '/views/dist'));
-const extractTextPlugin = new ExtractTextPlugin('css/[name].[contenthash:6].css');
+const extractTextPlugin = new ExtractTextPlugin('statics/css/[name].[contenthash:6].css');
 const isomorphicPlugin = new IsomorphicPlugin({
 	extensions: ['jpg', 'png', 'gif', 'css']
 });
 
 module.exports = {
 	context: path.join(__dirname, '/views/src'),
-	entry: './js/index.js',
+	entry: './client-router.js',
 	output: {
 		path: path.join(__dirname, '/views/dist'),
-		filename: 'js/[name].[chunkhash:6].js'
+		filename: 'statics/js/[name].[chunkhash:6].js'
 	},
 	module: {
 		loaders: [{
@@ -31,7 +31,7 @@ module.exports = {
 			})
 		}, {
 			test: /\.(jpg|png|gif$)/,
-			use: 'file-loader?name=img/[name].[hash:6].[ext]'
+			use: 'file-loader?name=statics/img/[name].[hash:6].[ext]'
 		}]
 	},
 	plugins: [

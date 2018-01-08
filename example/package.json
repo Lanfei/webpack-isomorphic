@@ -1,6 +1,6 @@
 {
   "name": "webpack-isomorphic-example",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "The example of webpack-isomorphic.",
   "main": "index.js",
   "scripts": {

@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Coming soon!\" && exit 1"
   },
+  "engines": {
+    "node": ">=4.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lanfei/webpack-isomorphic.git"

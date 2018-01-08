@@ -8,14 +8,14 @@ const Module = require('module');
 // @see https://github.com/nodejs/node/blob/master/lib/module.js
 exports.install = function (context, opts) {
 	opts = opts || {};
-	var cache = opts['cache'] !== false;
+	let cache = opts['cache'] !== false;
 
-	var assets;
-	var files;
-	var extensions;
+	let assets;
+	let files;
+	let extensions;
 
 	function loadAssets() {
-		var filename = path.join(context, 'webpack.assets.json');
+		let filename = path.join(context, 'webpack.assets.json');
 		try {
 			assets = JSON.parse(fs.readFileSync(filename));
 		} catch (e) {
@@ -31,21 +31,21 @@ exports.install = function (context, opts) {
 				if (!cache) {
 					delete Module._cache[filename];
 				}
-				var relative = path.relative(context, filename);
+				let relative = path.relative(context, filename);
 				module._compile(files[relative], filename);
 			}
 		});
 	}
 
-	var original = Module._findPath;
+	let original = Module._findPath;
 	Module._findPath = function (request, paths) {
 		if (!assets || !cache) {
 			loadAssets();
 		}
-		var i, l;
-		var filename;
-		var relative;
-		var ext = path.extname(request).slice(1);
+		let i, l;
+		let filename;
+		let relative;
+		let ext = path.extname(request).slice(1);
 		for (i = 0, l = paths.length; i < l; ++i) {
 			filename = path.join(paths[i], request);
 			if (fs.existsSync(filename) && fs.statSync(filename).isFile()) {

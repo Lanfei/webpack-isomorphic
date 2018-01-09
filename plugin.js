@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const mkdirp = require('mkdirp');
 
 function IsomorphicPlugin(options) {
 	this.extensions = options.extensions || [];
@@ -35,19 +36,20 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 				}
 			}
 		});
+
 		let assetsByChunkName = json['assetsByChunkName'];
 		Object.keys(assetsByChunkName).forEach(function (chunkName) {
 			let assets = assetsByChunkName[chunkName];
 			if (!Array.isArray(assets)) {
 				assets = [assets];
 			}
+			let chunksByName = chunks[chunkName] = [];
 			assets.forEach(function (asset) {
-				let ext = path.extname(asset).slice(1);
-				let chunksByExt = chunks[ext] = chunks[ext] || {};
-				chunksByExt[chunkName] = publicPath + asset;
+				chunksByName.push(publicPath + asset);
 			});
 		});
 
+		mkdirp.sync(outputPath);
 		fs.writeFileSync(path.join(outputPath, 'webpack.assets.json'), JSON.stringify(assets));
 	});
 };

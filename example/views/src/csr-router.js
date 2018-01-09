@@ -1,12 +1,14 @@
 'use strict';
 
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
 import {BrowserRouter} from 'react-router-dom';
 
 import App from './app';
 
-export default class Router extends React.Component {
+/**
+ * @see https://reacttraining.com/react-router/web/guides/server-rendering
+ */
+export default class CSRRouter extends React.Component {
 	render() {
 		let data = this.props.data;
 		return <BrowserRouter>
@@ -14,5 +16,3 @@ export default class Router extends React.Component {
 		</BrowserRouter>;
 	}
 }
-
-ReactDOM.hydrate(<Router data={initialData}/>, document.getElementById('app'));

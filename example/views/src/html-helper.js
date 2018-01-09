@@ -2,13 +2,23 @@
 
 import React from 'react';
 
-export default class HTML extends React.Component {
+export default class HTMLHelper extends React.Component {
 	render() {
 		let html = this.props['html'];
 		let data = this.props['data'];
 		let chunks = this.props.chunks || {};
-		let jsFiles = chunks['js'] || {};
-		let cssFiles = chunks['css'] || {};
+		let jsFiles = [];
+		let cssFiles = [];
+		Object.keys(chunks).forEach((name) => {
+			let files = chunks[name];
+			files.forEach((filename) => {
+				if (filename.slice(-3) === '.js') {
+					jsFiles.push(filename);
+				} else if (filename.slice(-4) === '.css') {
+					cssFiles.push(filename);
+				}
+			})
+		});
 
 		return <html>
 		<head>

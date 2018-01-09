@@ -11,8 +11,8 @@ exports.install = function (context, opts) {
 	let cache = opts['cache'] !== false;
 
 	let assets;
-	let files;
-	let extensions;
+	let files = {};
+	let extensions = [];
 
 	function loadAssets() {
 		let filename = path.join(context, 'webpack.assets.json');
@@ -37,8 +37,19 @@ exports.install = function (context, opts) {
 		});
 	}
 
+	function clearCache() {
+		Object.keys(Module._cache).forEach(function (key) {
+			if (path.relative(context, key).indexOf('node_modules') < 0) {
+				delete Module._cache[key];
+			}
+		});
+	}
+
 	let original = Module._findPath;
 	Module._findPath = function (request, paths) {
+		if (!cache) {
+			clearCache();
+		}
 		if (!assets || !cache) {
 			loadAssets();
 		}
@@ -66,6 +77,9 @@ exports.install = function (context, opts) {
 
 	exports.getChunks = function () {
 		return assets.chunks || {};
+	};
+
+	exports.install = function () {
 	};
 
 };

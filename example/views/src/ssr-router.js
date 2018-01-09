@@ -1,11 +1,14 @@
 'use strict';
 
-import React from 'react'
+import React from 'react';
 import {StaticRouter} from 'react-router';
 
 import App from './app';
 
-export default class Router extends React.Component {
+/**
+ * @see https://reacttraining.com/react-router/web/guides/server-rendering
+ */
+export default class SSRRouter extends React.Component {
 	render() {
 		let data = this.props.data;
 		let context = this.props.context;

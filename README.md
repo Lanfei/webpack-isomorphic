@@ -1,4 +1,4 @@
-# webpack-isomorphic [![npm version][npm]][npm-url]
+# webpack-isomorphic  &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Lanfei/webpack-isomorphic/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/webpack-isomorphic.svg)](https://www.npmjs.com/package/webpack-isomorphic)
 
 A lightweight solution for the server-side rendering of webpack-built applications.
 
@@ -65,6 +65,3 @@ Enjoy!
 ## Example
 
 See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/master/example) for more details.
-
-[npm]: https://img.shields.io/npm/v/webpack-isomorphic.svg
-[npm-url]: https://npmjs.org/package/webpack-isomorphic

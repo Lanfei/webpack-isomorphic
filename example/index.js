@@ -5,7 +5,7 @@ const express = require('express');
 const compression = require('compression');
 const ssr = require('./ssr');
 
-const port = 9000;
+const port = 8080;
 const app = express();
 const viewsDir = path.join(__dirname, './views/dist');
 

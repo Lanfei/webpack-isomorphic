@@ -6,6 +6,8 @@ const ssr = require('./ssr');
 
 const common = require('./webpack.common.js');
 
+process.env.NODE_ENV = 'development';
+
 module.exports = merge(common, {
 	entry: [
 		'react-hot-loader/patch',
@@ -17,7 +19,7 @@ module.exports = merge(common, {
 	],
 	devServer: {
 		hot: true,
-		port: 9000,
+		port: 8080,
 		compress: true,
 		contentBase: false,
 		after: function (app) {

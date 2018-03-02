@@ -14,7 +14,6 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 	let extensions = this.extensions || [];
 	let assets = {extensions: extensions, files: files, chunks: chunks};
 	let options = compiler.options;
-	let context = options.context;
 	let outputPath = options.output.path || '';
 	let publicPath = options.output.publicPath || '';
 
@@ -26,7 +25,7 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 			let ext = path.extname(name).slice(1);
 			if (name.indexOf('!') < 0 && extensions.indexOf(ext) >= 0) {
 				let prefix = 'let __webpack_public_path__ = \'' + publicPath + '\';';
-				let filename = path.relative(context, name);
+				let filename = path.normalize(name);
 				let source = module['source'];
 
 				if (source) {

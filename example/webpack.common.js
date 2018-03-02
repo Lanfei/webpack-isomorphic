@@ -12,7 +12,7 @@ module.exports = {
 		filename: 'statics/js/[name].[hash:6].js'
 	},
 	module: {
-		loaders: [{
+		rules: [{
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
 			use: 'babel-loader'

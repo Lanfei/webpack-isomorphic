@@ -13,6 +13,7 @@ module.exports = merge(common, {
 		'react-hot-loader/patch',
 		'./entry'
 	],
+	mode: 'development',
 	plugins: [
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin()

@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const IsomorphicPlugin = require('../plugin');
 
 module.exports = {
@@ -14,21 +14,18 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /\.jsx?$/,
-			exclude: /node_modules/,
-			use: 'babel-loader'
+			use: 'babel-loader',
+			exclude: /node_modules/
 		}, {
 			test: /\.css$/,
-			use: ExtractTextPlugin.extract({
-				fallback: 'style-loader',
-				use: 'css-loader?modules'
-			})
+			use: [MiniCssExtractPlugin.loader, 'css-loader']
 		}, {
 			test: /\.(jpg|png|gif$)/,
 			use: 'file-loader?name=statics/img/[name].[hash:6].[ext]'
 		}]
 	},
 	plugins: [
-		new ExtractTextPlugin('statics/css/[name].[contenthash:6].css'),
-		new IsomorphicPlugin({extensions: ['jpg', 'png', 'gif', 'css']})
+		new IsomorphicPlugin({extensions: ['jpg', 'png', 'gif', 'css']}),
+		new MiniCssExtractPlugin({filename: 'statics/css/[name].[contenthash:6].css'})
 	]
 };

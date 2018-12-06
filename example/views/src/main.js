@@ -7,7 +7,8 @@ import {AppContainer} from 'react-hot-loader';
 /**
  * @see https://github.com/gaearon/react-hot-loader/tree/v3.1.3
  */
-function render(Component) {
+function render() {
+	let Component = require('./ClientRouter').default;
 	ReactDOM.hydrate(
 		<AppContainer>
 			<Component data={initialData}/>
@@ -16,9 +17,7 @@ function render(Component) {
 }
 
 if (module.hot) {
-	module.hot.accept('./csr-router.js', function () {
-		render(require('./csr-router').default);
-	})
+	module.hot.accept('./ClientRouter.js', render);
 }
 
-render(require('./csr-router').default);
+render();

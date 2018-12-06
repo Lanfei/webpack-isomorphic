@@ -5,9 +5,10 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const webpackIsomorphic = require('..');
 
-const isDevelopment = process.env['NODE_ENV'] === 'development';
-
 module.exports = function (viewsDir) {
+
+	const isDevelopment = process.env['NODE_ENV'] === 'development';
+
 	// Render a react class to string
 	function renderToString(reactClass, data) {
 		let classPath = path.join(viewsDir, reactClass);
@@ -17,16 +18,15 @@ module.exports = function (viewsDir) {
 
 	// SSR middleware
 	return function (req, res) {
-		// Setup webpack-isomorphic at first request
 		webpackIsomorphic.install(viewsDir, {
 			cache: !isDevelopment
 		});
 
 		let context = {};
 		let data = {
-			appName: 'React isomorphic'
+			appName: 'React Example'
 		};
-		let html = renderToString('ssr-router.js', {
+		let html = renderToString('ServerRouter', {
 			context: context,
 			location: req.url,
 			data: data
@@ -37,7 +37,7 @@ module.exports = function (viewsDir) {
 		if (context.url) {
 			res.redirect(context.statusCode || 301, context.url);
 		} else {
-			res.end('<!DOCTYPE html>' + renderToString('html-helper.js', {
+			res.end('<!DOCTYPE html>' + renderToString('HTMLHelper', {
 				data: data,
 				html: html,
 				chunks: webpackIsomorphic.getChunks()

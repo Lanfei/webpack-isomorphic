@@ -9,7 +9,7 @@ module.exports = {
 	output: {
 		publicPath: '/',
 		path: path.join(__dirname, '/views/dist'),
-		filename: 'statics/js/[name].[hash:6].js'
+		filename: 'assets/js/[name].[hash:6].js'
 	},
 	module: {
 		rules: [{
@@ -21,11 +21,11 @@ module.exports = {
 			use: [MiniCssExtractPlugin.loader, 'css-loader']
 		}, {
 			test: /\.(jpg|png|gif$)/,
-			use: 'file-loader?name=statics/img/[name].[hash:6].[ext]'
+			use: 'file-loader?name=assets/img/[name].[hash:6].[ext]'
 		}]
 	},
 	plugins: [
 		new IsomorphicPlugin({extensions: ['jpg', 'png', 'gif', 'css']}),
-		new MiniCssExtractPlugin({filename: 'statics/css/[name].[contenthash:6].css'})
+		new MiniCssExtractPlugin({filename: 'assets/css/[name].[contenthash:6].css'})
 	]
 };

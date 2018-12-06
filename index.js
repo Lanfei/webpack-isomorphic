@@ -17,7 +17,7 @@ exports.install = function (context, opts) {
 	function loadAssets() {
 		let filename = path.join(context, 'webpack.assets.json');
 		try {
-			assets = JSON.parse(fs.readFileSync(filename));
+			assets = JSON.parse(fs.readFileSync(filename).toString());
 		} catch (e) {
 			console.warn('Warning: \'' + filename + '\' is not valid.');
 			return;
@@ -37,19 +37,17 @@ exports.install = function (context, opts) {
 		});
 	}
 
-	function clearCache() {
-		Object.keys(Module._cache).forEach(function (key) {
-			if (path.relative(context, key).indexOf('node_modules') < 0) {
-				delete Module._cache[key];
-			}
-		});
-	}
-
-	let original = Module._findPath;
-	Module._findPath = function (request, paths) {
-		if (!cache) {
-			clearCache();
+	let originalLoad = Module._load;
+	Module._load = function (request, parent, isMain) {
+		let filename = Module._resolveFilename(request, parent, isMain);
+		if (path.relative(context, filename).indexOf('node_modules') < 0) {
+			delete Module._cache[filename];
 		}
+		return originalLoad.apply(Module, arguments);
+	};
+
+	let originalFindPath = Module._findPath;
+	Module._findPath = function (request, paths) {
 		if (!assets || !cache) {
 			loadAssets();
 		}
@@ -64,7 +62,7 @@ exports.install = function (context, opts) {
 			}
 		}
 		if (extensions.indexOf(ext) < 0) {
-			return original.apply(Module, arguments);
+			return originalFindPath.apply(Module, arguments);
 		}
 		for (i = 0, l = paths.length; i < l; ++i) {
 			filename = path.join(paths[i], request);
@@ -76,6 +74,9 @@ exports.install = function (context, opts) {
 	};
 
 	exports.getChunks = function () {
+		if (!assets || !cache) {
+			loadAssets();
+		}
 		return assets.chunks || {};
 	};
 

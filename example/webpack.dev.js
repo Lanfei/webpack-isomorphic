@@ -4,14 +4,14 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const ssr = require('./ssr');
 
-const common = require('./webpack.common.js');
+const common = require('./webpack.base.js');
 
 process.env.NODE_ENV = 'development';
 
 module.exports = merge(common, {
 	entry: [
 		'react-hot-loader/patch',
-		'./entry'
+		'./main'
 	],
 	mode: 'development',
 	plugins: [

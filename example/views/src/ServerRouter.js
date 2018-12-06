@@ -3,12 +3,12 @@
 import React from 'react';
 import {StaticRouter} from 'react-router';
 
-import App from './app';
+import App from './App';
 
 /**
  * @see https://reacttraining.com/react-router/web/guides/server-rendering
  */
-export default class SSRRouter extends React.Component {
+export default class ServerRouter extends React.Component {
 	render() {
 		let data = this.props.data;
 		let context = this.props.context;

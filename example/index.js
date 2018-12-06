@@ -22,7 +22,7 @@ app.use(function (req, res, next) {
 });
 
 // Serve static files
-app.use('/statics', express.static(path.join(viewsDir, 'statics')));
+app.use('/assets', express.static(path.join(viewsDir, 'assets')));
 
 // Server side rendering
 app.use(ssr(viewsDir));

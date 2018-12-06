@@ -1,0 +1,47 @@
+body {
+	color: #345;
+	font-size: 14px;
+	margin: 0 0 80px;
+	line-height: 180%;
+	text-align: center;
+	background: #f1f3f5;
+	font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+}
+
+a {
+	color: #345;
+}
+
+a:hover {
+	color: #745fb5;
+}
+
+#title {
+	font-weight: normal;
+}
+
+#desc {
+	color: #678;
+	line-height: 30px;
+}
+
+#list,
+#content {
+	width: 600px;
+	text-align: left;
+	overflow: scroll;
+	margin: 30px auto;
+	min-height: 200px;
+	box-sizing: border-box;
+	box-shadow: 0 6px 8px rgba(102, 119, 136, 0.03), 0 1px 2px rgba(102, 119, 136, 0.3);
+}
+
+#list {
+	background: #f8f9fa;
+}
+
+#content {
+	background: #fff;
+	padding: 8px 16px;
+}
+

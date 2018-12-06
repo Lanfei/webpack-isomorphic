@@ -20,5 +20,5 @@ npm start
 ### Development
 
 ```bash
-npm run dev
+npm run start:dev
 ```

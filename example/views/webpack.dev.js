@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ssr = require('./ssr');
+const ssr = require('../ssr');
 
 const common = require('./webpack.base.js');
 

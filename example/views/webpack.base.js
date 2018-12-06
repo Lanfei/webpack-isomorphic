@@ -2,7 +2,7 @@
 
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const IsomorphicPlugin = require('../plugin');
+const IsomorphicPlugin = require('../../plugin');
 
 module.exports = {
 	context: path.join(__dirname, '/views/src'),

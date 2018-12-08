@@ -20,7 +20,7 @@ module.exports = merge(common, {
 	],
 	devServer: {
 		hot: true,
-		port: 8080,
+		port: 9000,
 		compress: true,
 		contentBase: false,
 		after: function (app) {

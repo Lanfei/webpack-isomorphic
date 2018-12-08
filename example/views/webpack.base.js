@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const IsomorphicPlugin = require('../../plugin');
 
 module.exports = {
-	context: path.join(__dirname, '/views/src'),
+	context: path.join(__dirname, '/src'),
 	output: {
 		publicPath: '/',
-		path: path.join(__dirname, '/views/dist'),
+		path: path.join(__dirname, '/dist'),
 		filename: 'assets/js/[name].[hash:6].js'
 	},
 	module: {

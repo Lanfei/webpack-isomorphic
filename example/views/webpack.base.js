@@ -20,7 +20,7 @@ module.exports = {
 			test: /\.css$/,
 			use: [MiniCssExtractPlugin.loader, 'css-loader']
 		}, {
-			test: /\.(jpg|png|gif$)/,
+			test: /\.(jpg|png|gif)$/,
 			use: 'file-loader?name=assets/img/[name].[hash:6].[ext]'
 		}]
 	},

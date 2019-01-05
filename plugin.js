@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const url = require('url');
 const path = require('path');
 const mkdirp = require('mkdirp');
 
@@ -11,19 +12,25 @@ function IsomorphicPlugin(options) {
 IsomorphicPlugin.prototype.apply = function (compiler) {
 	let files = {};
 	let chunks = {};
-	let extensions = this.extensions || [];
+	let extensions = this.extensions;
 	let assets = {extensions: extensions, files: files, chunks: chunks};
 	let options = compiler.options;
 	let context = options.context;
 	let outputPath = options.output.path || '';
 	let publicPath = options.output.publicPath || '';
 
-	compiler.plugin('done', function (stats) {
+	if (compiler.hooks) {
+		compiler.hooks.done.tap('webpack-isomorphic-plugin', createAssetsFile);
+	} else {
+		compiler.plugin('done', createAssetsFile);
+	}
+
+	function createAssetsFile(stats) {
 		let json = stats.toJson();
 		let modules = json['modules'];
 		modules.forEach(function (module) {
 			let name = module['name'] || '';
-			let ext = path.extname(name).slice(1);
+			let ext = path.extname(url.parse(name).pathname).slice(1);
 			if (name.indexOf('!') < 0 && extensions.indexOf(ext) >= 0) {
 				let prefix = 'let __webpack_public_path__ = \'' + publicPath + '\';';
 				let filename = path.normalize(name);
@@ -55,7 +62,7 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 
 		mkdirp.sync(outputPath);
 		fs.writeFileSync(path.join(outputPath, 'webpack.assets.json'), JSON.stringify(assets));
-	});
+	}
 };
 
 module.exports = IsomorphicPlugin;

@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const url = require('url');
 const path = require('path');
 const Module = require('module');
 
@@ -54,7 +55,7 @@ exports.install = function (context, opts) {
 		let i, l;
 		let filename;
 		let relative;
-		let ext = path.extname(request).slice(1);
+		let ext = path.extname(url.parse(request).pathname).slice(1);
 		for (i = 0, l = paths.length; i < l; ++i) {
 			filename = path.join(paths[i], request);
 			if (fs.existsSync(filename) && fs.statSync(filename).isFile()) {

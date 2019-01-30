@@ -32,9 +32,9 @@ But you'll get an error in server-side rendering, because it is not supported by
 
 ```bash
 # for webpack 4
-$ npm install --save webpack-isomorphic@4
+npm install --save webpack-isomorphic@4
 # for webpack 3
-$ npm install --save webpack-isomorphic@3
+npm install --save webpack-isomorphic@3
 ```
 
 ### webpack.config.js

@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const IsomorphicPlugin = require('../../plugin');
 
 module.exports = {

@@ -7,20 +7,29 @@ const Module = require('module');
 
 // require hack
 // @see https://github.com/nodejs/node/blob/master/lib/module.js
-exports.install = function (context, opts) {
-	opts = opts || {};
-	let cache = opts['cache'] !== false;
+exports.install = function (context, options) {
+	exports.uninstall && exports.uninstall();
+
+	if (!path.isAbsolute(context)) {
+		context = path.join(process.cwd(), context);
+	}
+
+	options = options || {};
+	let cache = options['cache'] !== false;
+	let assetsFilePath = options.assetsFilePath || path.join(context, 'webpack.assets.json');
+	if (!path.isAbsolute(assetsFilePath)) {
+		assetsFilePath = path.join(process.cwd(), assetsFilePath);
+	}
 
 	let assets;
 	let files = {};
 	let extensions = [];
 
 	function loadAssets() {
-		let filename = path.join(context, 'webpack.assets.json');
 		try {
-			assets = JSON.parse(fs.readFileSync(filename).toString());
+			assets = JSON.parse(fs.readFileSync(assetsFilePath).toString());
 		} catch (e) {
-			console.warn('Warning: \'' + filename + '\' is not valid.');
+			console.warn('Warning: \'' + assetsFilePath + '\' is not valid.');
 			return;
 		}
 
@@ -56,12 +65,6 @@ exports.install = function (context, opts) {
 		let filename;
 		let relative;
 		let ext = path.extname(url.parse(request).pathname).slice(1);
-		for (i = 0, l = paths.length; i < l; ++i) {
-			filename = path.join(paths[i], request);
-			if (fs.existsSync(filename) && fs.statSync(filename).isFile()) {
-				return filename;
-			}
-		}
 		if (extensions.indexOf(ext) < 0) {
 			return originalFindPath.apply(Module, arguments);
 		}
@@ -78,10 +81,14 @@ exports.install = function (context, opts) {
 		if (!assets || !cache) {
 			loadAssets();
 		}
-		return assets.chunks || {};
+		return assets && assets.chunks ? assets.chunks : {};
 	};
 
-	exports.install = function () {
+	exports.uninstall = function () {
+		exports.getChunks = null;
+		extensions.forEach(function (ext) {
+			delete Module._extensions['.' + ext];
+		});
 	};
 
 };

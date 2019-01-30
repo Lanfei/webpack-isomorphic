@@ -7,15 +7,17 @@ const mkdirp = require('mkdirp');
 
 function IsomorphicPlugin(options) {
 	this.extensions = options.extensions || [];
+	this.assetsFilePath = options.assetsFilePath || null;
 }
 
 IsomorphicPlugin.prototype.apply = function (compiler) {
 	let files = {};
 	let chunks = {};
 	let extensions = this.extensions;
+	let assetsFilePath = this.assetsFilePath || 'webpack.assets.json';
 	let assets = {extensions: extensions, files: files, chunks: chunks};
 	let options = compiler.options;
-	let context = options.context;
+	let context = options.context || process.cwd();
 	let outputPath = options.output.path || '';
 	let publicPath = options.output.publicPath || '';
 
@@ -32,7 +34,7 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 			let name = module['name'] || '';
 			let ext = path.extname(url.parse(name).pathname).slice(1);
 			if (name.indexOf('!') < 0 && extensions.indexOf(ext) >= 0) {
-				let prefix = 'let __webpack_public_path__ = \'' + publicPath + '\';';
+				let prefix = 'let __webpack_public_path__ = "' + publicPath + '";';
 				let filename = path.normalize(name);
 				let source = module['source'];
 
@@ -60,8 +62,11 @@ IsomorphicPlugin.prototype.apply = function (compiler) {
 			});
 		});
 
-		mkdirp.sync(outputPath);
-		fs.writeFileSync(path.join(outputPath, 'webpack.assets.json'), JSON.stringify(assets));
+		if (!path.isAbsolute(assetsFilePath)) {
+			assetsFilePath = path.join(outputPath, assetsFilePath);
+		}
+		mkdirp.sync(path.dirname(assetsFilePath));
+		fs.writeFileSync(assetsFilePath, JSON.stringify(assets));
 	}
 };
 

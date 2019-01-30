@@ -1,4 +1,11 @@
-# webpack-isomorphic  &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Lanfei/webpack-isomorphic/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/webpack-isomorphic.svg)](https://www.npmjs.com/package/webpack-isomorphic)
+# webpack-isomorphic
+
+[![Build Status][build-image]][build-url]
+[![Coverage Status][coverage-image]][coverage-url]
+[![Version][version-image]][version-url]
+[![License][license-image]][license-url]
+[![Dependencies][dep-image]][dep-url]
+[![DevDependencies][dev-dep-image]][dev-dep-url]
 
 A lightweight solution for the server-side rendering of webpack-built applications.
 
@@ -36,7 +43,8 @@ $ npm install --save webpack-isomorphic@3
 const IsomorphicPlugin = require('webpack-isomorphic/plugin');
 
 const isomorphicPlugin = new IsomorphicPlugin({
-	extensions: ['jpg', 'png', 'gif', 'css']
+	extensions: ['jpg', 'png', 'gif', 'css'],
+	// assetsFilePath: 'webpack.assets.json'
 });
 
 module.exports = {
@@ -57,7 +65,8 @@ const webpackIsomorphic = require('webpack-isomorphic');
 
 // The base directory of your built files
 webpackIsomorphic.install(__dirname + '/dist', {
-	cache: process.env['NODE_ENV'] !== 'development'
+	cache: process.env['NODE_ENV'] !== 'development',
+	// assetsFilePath: __dirname + '/dist/webpack.assets.json'
 });
 
 //...
@@ -68,3 +77,16 @@ Enjoy!
 ## Example
 
 See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/master/example) for more details.
+
+[build-url]: https://circleci.com/gh/Lanfei/webpack-isomorphic
+[build-image]: https://img.shields.io/circleci/project/github/Lanfei/webpack-isomorphic.svg
+[coverage-url]: https://codecov.io/github/Lanfei/webpack-isomorphic
+[coverage-image]: https://img.shields.io/codecov/c/github/Lanfei/webpack-isomorphic.svg
+[version-url]: https://npmjs.org/package/webpack-isomorphic
+[version-image]: https://img.shields.io/npm/v/webpack-isomorphic.svg
+[license-url]: https://github.com/Lanfei/webpack-isomorphic/blob/master/LICENSE
+[license-image]: https://img.shields.io/npm/l/webpack-isomorphic.svg
+[dep-url]: https://david-dm.org/Lanfei/webpack-isomorphic
+[dep-image]: https://david-dm.org/Lanfei/webpack-isomorphic/status.svg
+[dev-dep-url]: https://david-dm.org/Lanfei/webpack-isomorphic?type=dev
+[dev-dep-image]: https://david-dm.org/Lanfei/webpack-isomorphic/dev-status.svg

@@ -1,6 +1,6 @@
 {
   "name": "webpack-isomorphic",
-  "version": "4.3.1",
+  "version": "4.3.2",
   "description": "A lightweight solution for the server-side rendering of webpack-built applications.",
   "main": "index.js",
   "files": [
@@ -8,8 +8,8 @@
     "plugin.js"
   ],
   "scripts": {
-    "test": "mocha test/index.js",
-    "codecov": "istanbul cover _mocha && codecov",
+    "test": "mocha test/*.js",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "prepublish": "npm run test"
   },
   "engines": {
@@ -35,13 +35,13 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "codecov": "^3.1.0",
+    "coveralls": "^3.0.2",
     "css-loader": "^2.1.0",
     "file-loader": "^3.0.1",
-    "istanbul": "^0.4.5",
     "material-design-icons": "^3.0.1",
     "mini-css-extract-plugin": "^0.5.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "rimraf": "^2.6.3",
     "webpack": "^4.29.0",
     "webpack-merge": "^4.2.1"

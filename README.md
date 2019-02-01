@@ -80,8 +80,8 @@ See [the example project](https://github.com/Lanfei/webpack-isomorphic/tree/mast
 
 [build-url]: https://circleci.com/gh/Lanfei/webpack-isomorphic
 [build-image]: https://img.shields.io/circleci/project/github/Lanfei/webpack-isomorphic.svg
-[coverage-url]: https://codecov.io/github/Lanfei/webpack-isomorphic
-[coverage-image]: https://img.shields.io/codecov/c/github/Lanfei/webpack-isomorphic.svg
+[coverage-url]: https://coveralls.io/github/Lanfei/webpack-isomorphic
+[coverage-image]: https://coveralls.io/repos/github/Lanfei/webpack-isomorphic/badge.svg
 [version-url]: https://npmjs.org/package/webpack-isomorphic
 [version-image]: https://img.shields.io/npm/v/webpack-isomorphic.svg
 [license-url]: https://github.com/Lanfei/webpack-isomorphic/blob/master/LICENSE
